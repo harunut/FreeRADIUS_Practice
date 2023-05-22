@@ -1,0 +1,11 @@
+
+# /var/log/radius/radiusd.log
+
+
+Wed May 17 02:39:01 2023 : Auth: (32) Login OK: [nuts/<CHAP-Password>] (from client localhost port 0)
+Wed May 17 02:39:01 2023 : Debug: (32) Sent Access-Accept Id 166 from 127.0.0.1:1812 to 127.0.0.1:37027 length 0
+Wed May 17 02:39:01 2023 : Debug: (32) Finished request
+Wed May 17 02:39:01 2023 : Debug: Thread 3 waiting to be assigned a request
+Wed May 17 02:39:02 2023 : Debug: Waking up in 4.6 seconds.
+Wed May 17 02:39:06 2023 : Debug: (32) Cleaning up request packet ID 166 with timestamp +7844
+Wed May 17 02:39:06 2023 : Info: Ready to process requests

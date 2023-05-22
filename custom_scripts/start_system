@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Flask API 실행
+$PWD/flask_API/venvFLASK/bin/python3 $PWD/flask_API/venvFLASK/src/Flask_API.py &
+
+# Radius 서버 실행
+systemctl start radiusd.service

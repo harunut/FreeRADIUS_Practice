@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Flag variables
+EAP_FLAG=false
+
+# Default variable values
+USER=""
+PASSWORD=""
+CERT_PATH=""
+AUTH_METHOD=""
+SECRET_PASSWORD="testing123"
+
+# Usage function
+usage() {
+  echo "Usage: $(basename $0) [-eap] -u <user> -p <password> [-c <cert_path>] -a <auth_method>"
+  echo ""
+  echo "Options:"
+  echo "  -eap    Use eapol_test command with the given credentials and cert_path"
+  echo "  -u      User name for authentication"
+  echo "  -p      Password for authentication"
+  echo "  -c      Path to the certificate file for authentication"
+  echo "  -a      Authentication method to use (MSCHAP, MSCHAPv2, TLS, etc.) (required)"
+  echo "  -h      Help Meaul to uese "
+}
+
+# Parse command line arguments
+while getopts "cheu:p:a:" opt; do
+
+  case $opt in
+    e)
+      EAP_FLAG=true
+      ;;
+    u)
+      USER="$OPTARG"
+      ;;
+    p)
+      PASSWORD="$OPTARG"
+      ;;
+    c)
+      CERT_PATH="$OPTARG"
+      ;;
+    a)
+      AUTH_METHOD="$OPTARG"
+      ;;
+    h)
+      usage
+      exit 0 #
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      usage
+      exit 1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+# Check for required options
+if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$AUTH_METHOD" ]; then
+  echo "Error: Missing required option(s)." >&2
+  usage
+  exit 1
+fi
+
+# Perform the appropriate command based on the options provided
+if [ "$EAP_FLAG" = true ]; then
+  CONF_FILE="/etc/raddb/eapol_test.conf"
+  RADIUS_SERVER="127.0.0.1"
+  OPTION_TAG="-c$CONF_FILE -a$RADIUS_SERVER -p1812 -s$SECRET_PASSWORD"
+  sed -i "s/eap=.*/eap=$AUTH_METHOD/" /etc/raddb/eapol_test.conf
+  echo "$AUTH_METHOD"
+  eapol_test $OPTION_TAG
+else
+  echo "radtest -t "$AUTH_METHOD" "$USER" "$PASSWORD" localhost 0 "$SECRET_PASSWORD""
+  radtest -t "$AUTH_METHOD" "$USER" "$PASSWORD" localhost 0 "$SECRET_PASSWORD"
+fi
+
+exit 0
+
+
+# conf_file="/etc/raddb/eapol_test.conf"
+# radius_server_ip="127.0.0.1"
+# secret_passwd="testing123"
+# user_name="Daseul"
+# passwd="9511017"
+
+# option_tag="-c$conf_file -a$radius_server_ip -p1812 -s$secret_passwd"
+
+# sudo eapol_test $option_tag
