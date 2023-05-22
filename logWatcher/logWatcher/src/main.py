@@ -1,7 +1,6 @@
 import sys
 sys.path.append("/etc/raddb/logWatcher/logWatcher")
 
-import utils.ReaderLogWatcherConf
 from LogClass import LogWatcher
 
 if __name__ == "__main__":

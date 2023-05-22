@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-TYPE_LIST = ['Debug:', 'Auth:']
+TYPE_LIST = ['Debug:', 'Auth:', 'Error:']
 
 class InDataBase:
     def __init__(self, log_data):
@@ -28,15 +28,17 @@ class InDataBase:
                     else:
                         break
         
-        if len(self.log_list) > 1 and type(pd.DataFrame(self.log_list)) is not None:
-            return pd.DataFrame(self.log_list, columns=["date", "type", "value", "section"])
+        grouped_data = pd.DataFrame(self.log_list, columns=["date", "type", "value", "section"]).groupby("section")
+        grouped_list = [grouped_data.get_group(group_name) for group_name in grouped_data.groups]
+        
+        return grouped_list
 
 def extract_number(string):
-    pattern = r'^\(\d+\)'  # (숫자) 패턴을 나타내는 정규표현식
+    pattern = r'^\(\d+\)'  
 
     match = re.match(pattern, string)
     if match:
-        number = int(match.group(0)[1:-1])  # 괄호를 제외한 숫자만 추출
+        number = int(match.group(0)[1:-1]) 
         return number
     else:
         return False
