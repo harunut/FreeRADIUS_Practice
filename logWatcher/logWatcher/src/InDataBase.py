@@ -17,9 +17,7 @@ class InDataBase:
                     type_value = log[index:]
                     section = extract_number(type_value[type_value.find(":") + 2:])
                     
-                    # Check if section is a valid number
                     if section is not False:
-                        # Append log entry to log_list
                         self.log_list.append(
                             [date[:-3], 
                              type_value[:type_value.find(":")], 
@@ -30,7 +28,6 @@ class InDataBase:
                     else:
                         break
         
-        # Check if log_list is not empty and can be converted to a DataFrame
         if len(self.log_list) > 1 and type(pd.DataFrame(self.log_list)) is not None:
             return pd.DataFrame(self.log_list, columns=["date", "type", "value", "section"])
 

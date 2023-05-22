@@ -3,6 +3,7 @@ from watchdog.events import FileSystemEventHandler
 from utils.ReaderLogWatcherConf import *
 from InDataBase import InDataBase
 from process_mode import CheckRunModule
+from AAAlog import AAA
 import time
 import pandas as pd
 
@@ -37,9 +38,7 @@ class LogHandler(FileSystemEventHandler):
                 logDB = InDataBase(content_list).process_logs()
                 if type(logDB) != pd.DataFrame or logDB.empty:
                     return -1
-
-                print(CheckRunModule(logDB).process_method())
-                
+                AAA(CheckRunModule(logDB).process_method())
                 # 현재 위치 저장
                 self.last_position = file_size
 
