@@ -1,0 +1,21 @@
+{
+    "pre_AUTH": {
+        "userName": "nuts",
+        "AuthInfo": {
+            "NAS-IP-Address": "127.0.0.1",
+            "NAS-Port": "0",
+            "Message-Authenticator": "0x3294542c342f4ae71142951682355d9c",
+            "MS-CHAP-Challenge": "0x37cf389ddf4403fb",
+            "MS-CHAP-Response": "0x0001000000000000000000000000000000000000000000000000982b952a638ba87d923cb83fa524bf259c312e74f196fdc8"
+        }
+    },
+    "AUTH": {
+        "[preprocess]": "ok",
+        "[mschap]": "ok",
+        "[files]": "ok"
+    },
+    "post_AUTH": {
+        "[attr_filter.access_reject]": "updated",
+        "Auth": "Login incorrect (mschap: MS-CHAP2-Response is incorrect): [nuts/<via Auth-Type = mschap>] (from client localhost port 0)"
+    }
+}

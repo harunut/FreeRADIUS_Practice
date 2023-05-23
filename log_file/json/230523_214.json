@@ -1,0 +1,20 @@
+{
+    "pre_AUTH": {
+        "userName": "nuts",
+        "AuthInfo": {
+            "CHAP-Password": "0x06f026576bb24429a8bba85edaa26a8ae8",
+            "NAS-IP-Address": "127.0.0.1",
+            "NAS-Port": "0",
+            "Message-Authenticator": "0xeff8cb0ed89608e1da8948765b57aa05"
+        }
+    },
+    "AUTH": {
+        "[preprocess]": "ok",
+        "[chap]": "ok",
+        "[files]": "ok"
+    },
+    "post_AUTH": {
+        "[chap]": "ok",
+        "Auth": "Login OK: [nuts/<CHAP-Password>] (from client localhost port 0)"
+    }
+}

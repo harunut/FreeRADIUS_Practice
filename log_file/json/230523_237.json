@@ -1,0 +1,19 @@
+{
+    "pre_AUTH": {
+        "userName": "nutdsdss",
+        "AuthInfo": {
+            "CHAP-Password": "0xc00de18c1eba46cb5e95185aec85d2df14",
+            "NAS-IP-Address": "127.0.0.1",
+            "NAS-Port": "0",
+            "Message-Authenticator": "0xc16e9742d1bdae012eb22159609056bc"
+        }
+    },
+    "AUTH": {
+        "[preprocess]": "ok",
+        "[chap]": "ok"
+    },
+    "post_AUTH": {
+        "[attr_filter.access_reject]": "updated",
+        "Auth": "Login incorrect (chap: &control:Cleartext-Password is required for authentication): [nutdsdss/<via Auth-Type = CHAP>] (from client localhost port 0)"
+    }
+}

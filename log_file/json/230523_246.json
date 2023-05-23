@@ -1,0 +1,21 @@
+{
+    "pre_AUTH": {
+        "userName": "nuts",
+        "AuthInfo": {
+            "NAS-IP-Address": "127.0.0.1",
+            "NAS-Port": "0",
+            "Message-Authenticator": "0x515980981b660f44bcb2efac0286fdf3",
+            "MS-CHAP-Challenge": "0x773dc72d2af608b7",
+            "MS-CHAP-Response": "0x000100000000000000000000000000000000000000000000000072393871c214965b4b3d9e961e7a5f7763a9c5d5ef6eaaf9"
+        }
+    },
+    "AUTH": {
+        "[preprocess]": "ok",
+        "[mschap]": "ok",
+        "[files]": "ok"
+    },
+    "post_AUTH": {
+        "[mschap]": "ok",
+        "Auth": "Login OK: [nuts/<via Auth-Type = mschap>] (from client localhost port 0)"
+    }
+}

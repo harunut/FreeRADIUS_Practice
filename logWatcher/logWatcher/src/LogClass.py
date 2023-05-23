@@ -1,10 +1,11 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from utils.ReaderLogWatcherConf import *
+import utils.ReaderLogWatcherConf as conf 
 from InDataBase import InDataBase
-from process_mode import CheckRunModule
+from src.Module_Mode.process_mode import Mode_print, Mode_toJson
 from AAAlog import AAA
 import json
+import utils.ExceptionClass
 import time
 import pandas as pd
 
@@ -25,7 +26,6 @@ class LogHandler(FileSystemEventHandler):
                 new_content = f.read(file_size - self.last_position)
                 content_list = new_content.split("\n")
 
-     
                 # 'Received Access-Request'를 포함한 첫번째 항목 찾기
                 while content_list:
                     if 'Received Access-Request' in content_list[0]:
@@ -41,9 +41,16 @@ class LogHandler(FileSystemEventHandler):
                 for element in logDB:
                     if type(element) != pd.DataFrame or element.empty: 
                         return -1
-                    elif processMode == "stdout":
-                        CheckRunModule(element).process_method()
-      
+                    elif conf.mode == "toPrint":
+                        Mode_print(element).process_method()
+                    elif conf.mode == "toJson":
+                        Mode_toJson(element).process_method()
+                    else:
+                        try:
+                            raise utils.ExceptionClass.ExceptionTryControl("Error : configure 0")
+                        except utils.ExceptionClass.ExceptionTryControl as e:
+                            e.handle_exception()
+                            
                 # 현재 위치 저장
                 self.last_position = file_size
 
@@ -53,7 +60,7 @@ class LogWatcher:
         self.logHandler = LogHandler()
 
     def watch_start(self):
-        self.observer.schedule(self.logHandler, path=log_file, recursive=True)
+        self.observer.schedule(self.logHandler, path=conf.log_file, recursive=True)
         self.observer.start()
 
         try:
