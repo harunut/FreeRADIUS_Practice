@@ -4,7 +4,7 @@
  
  - 테스트용으로 두 가지 모드로 동작확인 완료(toJson, toPrint)
  - RAD_HOME으로 Radius 기본 루트 폴더 raddb 경로 설정 필요함
-
+ - toJson 으로 생성되는 json 타입 파일을 log_file 내부에 저장
 
 
 
